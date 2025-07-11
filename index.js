@@ -40,5 +40,9 @@ app.get('/', (req, res) => {
   res.send('Email API is running!');
 });
 
+app.get('/senda', (req, res) => {
+  res.send('Email API is sending!');
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
