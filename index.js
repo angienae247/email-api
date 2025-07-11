@@ -41,7 +41,31 @@ app.get('/', (req, res) => {
 });
 
 app.get('/senda', (req, res) => {
-  res.send('Email API is sending!');
+  // Create a transporter
+  const transporter = nodemailer.createTransport({
+    service: 'mail.bpserver.site', // or use your SMTP provider
+    auth: {
+      user: 'hr@mail.bpserver.site',       // replace with your email
+      pass: 'IdontKnow'   // use App Password for Gmail
+    }
+  });
+  
+  // Email details
+  const mailOptions = {
+    from: 'hr@mail.bpserver.site',
+    to: 'mia8kelly@gmail.com',
+    subject: 'Test Email from Nodemailer',
+    text: 'Hello! This is a test email sent using Nodemailer.'
+  };
+  
+  // Send the email
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return res.send('Error sending email:', error);
+    }
+    res.send('Email sent:', info.response);
+  });
+  
 });
 
 const PORT = process.env.PORT || 3000;
